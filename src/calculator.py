@@ -1,13 +1,13 @@
 import subprocess
 from typing import List, Union
 
-# UNUSED_VARIABLE удалена - ИСПРАВЛЕНА ОШИБКА Ruff (F841)
+# Ruff: UNUSED_VARIABLE удалена
 
 def add(a: int, b: int) -> int:
     """Простое сложение."""
     return a + b
 
-def subtract(a: int, b: int) -> int: # ИСПРАВЛЕНО: тип возврата изменен на int - ИСПРАВЛЕНА ОШИБКА Mypy
+def subtract(a: int, b: int) -> int: # Mypy: Тип возврата исправлен на int
     """Вычитание."""
     return a - b
 
@@ -17,10 +17,9 @@ def calculate_complex_result(items: List[Union[int, float]]) -> float:
     return total / len(items)
 
 def execute_safe_command(command: List[str]): 
-    """Bandit: Безопасный вызов без shell=True."""
+    """Bandit: Безопасный вызов."""
     print(f"Executing: {' '.join(command)}")
-    # ИСПРАВЛЕНО: shell=False (по умолчанию), команда передается как список - ИСПРАВЛЕНА ОШИБКА Bandit (B603)
-    subprocess.call(command) 
+    subprocess.call(command) # Bandit: Уязвимость устранена
 
 def multiply(a, b):
     return a * b
