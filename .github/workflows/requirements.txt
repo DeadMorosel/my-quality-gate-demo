@@ -1,0 +1,7 @@
+requests==2.19.0 # Safety: Уязвимая версия
+pytest
+pytest-cov
+ruff
+mypy
+bandit
+safety
