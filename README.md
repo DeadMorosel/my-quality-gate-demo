@@ -1,1 +1,0 @@
-# my-quality-gate-demo
