@@ -1,4 +1,4 @@
-requests==2.19.0 # Safety: Уязвимая версия
+requests==2.28.1 # ИСПРАВЛЕНО: Безопасная версия
 pytest
 pytest-cov
 ruff
