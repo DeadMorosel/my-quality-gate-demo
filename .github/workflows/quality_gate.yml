@@ -1,0 +1,41 @@
+name: Quality Gate CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality_check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install Dependencies
+      run: pip install -r requirements.txt # ПУТЬ ИСПРАВЛЕН: файл теперь в корне
+
+    # 1. Запуск тестов (Должен пройти)
+    - name: 🧪 Run Tests and Coverage Check
+      run: |
+        pytest --cov=. --cov-fail-under=80
+
+    # 2. Запуск линтера (Провалится: F841)
+    - name: 🧹 Run Ruff Linter
+      run: ruff check .
+
+    # 3. Запуск анализатора типов (Провалится: неверный тип)
+    - name: 🔍 Run Mypy Type Checker
+      run: mypy .
+
+    # 4. Запуск сканера кода (Провалится: B603)
+    - name: 🚨 Run Bandit Security Scanner
+      run: bandit -r .
+
+    # 5. Запуск проверки зависимостей (Провалится: requests==2.19.0)
+    - name: 🛡️ Run Safety Dependency Check
+      run: safety check
